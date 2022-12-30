@@ -10,10 +10,10 @@ import static org.hamcrest.Matchers.equalTo;
 public class GreetingTest
 {
     @Test
-    public void testJaxrs() {
-        RestAssured.when().get("/hello").then()
+    public void testHello() {
+        RestAssured.when().get("/hello?name=Steven").then()
                 .contentType("text/plain")
-                .body(equalTo("hello jaxrs"));
+                .body(equalTo("Hello Steven"));
     }
 
 }

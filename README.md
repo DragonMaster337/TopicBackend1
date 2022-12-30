@@ -2,6 +2,9 @@
 
 ## Initial Project Setup
 https://quarkus.io/guides/amazon-lambda-http
+Install the SAM CLI and the AWS CLI
+Configure the AWS CLI with
+`aws configure`
 
 ## Project Basics
 
@@ -21,6 +24,14 @@ This will generate 3 key files
 * sam.native.yaml - sam cli deployment script for native
 
 ## Running locally
-`mvn quarkus:dev`
 
+### In quarkus dev mode
+`mvn quarkus:dev`
 Hit the endpoint with http://localhost:8080/hello
+
+### Using SAM Local to emulate the AWS environment
+`sam local start-api --template target/sam.jvm.yaml`
+Hit the endpoint with http://127.0.0.1:3000/hello
+
+## Deploy to AWS
+`sam deploy -t target/sam.jvm.yaml -g`
