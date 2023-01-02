@@ -6,6 +6,6 @@ stack_name = "topic-backend-app"
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-19dxuqlamkl30"
 s3_prefix = "topic-backend-app"
 region = "af-south-1"
-confirm_changeset = true
+confirm_changeset = false
 capabilities = "CAPABILITY_IAM"
 image_repositories = []
