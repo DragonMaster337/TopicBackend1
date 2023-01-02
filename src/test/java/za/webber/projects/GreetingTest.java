@@ -13,7 +13,7 @@ public class GreetingTest
     public void testHello() {
         RestAssured.when().get("/hello?name=Steven").then()
                 .contentType("text/plain")
-                .body(equalTo("Hello Steven"));
+                .body(equalTo("Hello Steven!"));
     }
 
 }
