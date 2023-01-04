@@ -1,4 +1,4 @@
-package za.webber.projects;
+package za.webber.projects.resources;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
