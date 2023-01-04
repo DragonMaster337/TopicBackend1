@@ -1,4 +1,4 @@
-package za.webber.projects;
+package za.webber.projects.resources;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
