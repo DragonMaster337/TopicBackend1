@@ -6,6 +6,16 @@ public class Topic {
     String topicName;
     List<Message> messages;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    String id;
+
     public String getTopicName() {
         return topicName;
     }
