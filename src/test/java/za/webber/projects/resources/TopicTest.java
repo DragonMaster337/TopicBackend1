@@ -25,5 +25,13 @@ public class TopicTest
                 //(Topic) response.body().as(List.class).get(0);
         assertEquals("Overwatch", topic.getTopicName());
     }
+    @Test
+    public void testGetTopic() {
+        Response response = RestAssured.get("/topic/SR1");
+        response.then().contentType("application/json");
+
+        Topic returnedTopic = response.getBody().as(Topic.class);
+        assertEquals("SR1", returnedTopic.getId());
+    }
 
 }
