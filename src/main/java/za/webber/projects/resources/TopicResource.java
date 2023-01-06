@@ -5,6 +5,7 @@ import za.webber.projects.model.Topic;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.UUID;
 
 @Path("/topic")
 public class TopicResource {
@@ -59,5 +60,17 @@ public class TopicResource {
         // Functional search for topic
         return topicList.stream().filter( topic ->  topic.getId().equals(id)  ).findFirst().orElse(null);
 
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Topic createTopic(Topic topicToCreate) {
+        Topic creator = new Topic();
+        creator.setId(UUID.randomUUID().toString());
+        creator.setTopicName(topicToCreate.getTopicName());
+        creator.setMessages(topicToCreate.getMessages());
+
+        return creator;
     }
 }
