@@ -31,11 +31,33 @@ public class TopicResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Topic getTopic(@PathParam("topicId") String id) {
         List<Topic> topicList = loadTopics();
-        for (Topic topic: topicList) {
-            if (topic.getId().equals(id)) {
-                return topic;
-            }
-        }
-        return null;
+
+//        for (Topic topic: topicList) {
+//            if (topic.getId().equals(id)) {
+//                return topic;
+//            }
+//        }
+//        return null;
+
+//      Iterator<Topic> topicIter = topicList.iterator();
+//      while (topicIter.hasNext()){
+//          Topic topicNext = topicIter.next();
+//          if (topicNext.getId().equals(id)) {
+//              return topicNext;
+//          }
+//      }
+//      return null;
+
+//        for (int i = 0; i < topicList.size(); i++) {
+//            Topic topic = topicList.get(i);
+//            if (topic.getId().equals(id)) {
+//                return topic;
+//            }
+//        }
+//        return null;
+
+        // Functional search for topic
+        return topicList.stream().filter( topic ->  topic.getId().equals(id)  ).findFirst().orElse(null);
+
     }
 }
