@@ -1,5 +1,6 @@
 package za.webber.projects.resources;
 
+import za.webber.projects.model.Message;
 import za.webber.projects.model.Topic;
 
 import javax.ws.rs.*;
@@ -31,34 +32,8 @@ public class TopicResource {
     @Path("{topicId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Topic getTopic(@PathParam("topicId") String id) {
-        List<Topic> topicList = loadTopics();
 
-//        for (Topic topic: topicList) {
-//            if (topic.getId().equals(id)) {
-//                return topic;
-//            }
-//        }
-//        return null;
-
-//      Iterator<Topic> topicIter = topicList.iterator();
-//      while (topicIter.hasNext()){
-//          Topic topicNext = topicIter.next();
-//          if (topicNext.getId().equals(id)) {
-//              return topicNext;
-//          }
-//      }
-//      return null;
-
-//        for (int i = 0; i < topicList.size(); i++) {
-//            Topic topic = topicList.get(i);
-//            if (topic.getId().equals(id)) {
-//                return topic;
-//            }
-//        }
-//        return null;
-
-        // Functional search for topic
-        return topicList.stream().filter( topic ->  topic.getId().equals(id)  ).findFirst().orElse(null);
+        return findTopic(id);
 
     }
 
@@ -72,5 +47,23 @@ public class TopicResource {
         creator.setMessages(topicToCreate.getMessages());
 
         return creator;
+    }
+
+    @POST
+    @Path("{topicId}/message")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Topic createMessage(@PathParam("topicId") String id, Message messageCreator) {
+        Topic topicToAddTo = findTopic(id);
+        Message message = new Message();
+        message.setId(UUID.randomUUID().toString());
+        message.setText(messageCreator.getText());
+        topicToAddTo.addMessage(message);
+        return topicToAddTo;
+    }
+
+    private Topic findTopic(String topicId) {
+        List<Topic> topicList = loadTopics();
+        return topicList.stream().filter( topic ->  topic.getId().equals(topicId)  ).findFirst().orElse(null);
     }
 }

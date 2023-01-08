@@ -3,7 +3,9 @@ package za.webber.projects.resources;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.Test;
+import za.webber.projects.model.Message;
 import za.webber.projects.model.Topic;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,4 +36,22 @@ public class TopicTest
         assertEquals("SR1", returnedTopic.getId());
     }
 
+    @Test
+    public void testGetMessage() {
+        Message myMessage = new Message();
+        myMessage.setText("bob");
+
+        RequestSpecification reqSpec = RestAssured.given();
+        reqSpec.header("Content-Type", "application/json");
+        reqSpec.body(myMessage);
+        Response response = reqSpec.post("/topic/SR1/message");
+
+
+        response.then().contentType("application/json");
+
+        Topic returnedTopic = response.getBody().as(Topic.class);
+        Message returnedMessage = returnedTopic.getMessages().get(0);
+        assertEquals("SR1", returnedTopic.getId());
+        assertEquals("bob", returnedMessage.getText());
+    }
 }
