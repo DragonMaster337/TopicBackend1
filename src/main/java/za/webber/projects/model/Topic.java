@@ -36,4 +36,12 @@ public class Topic {
     public void addMessage(Message messageToAdd) {
         messages.add(messageToAdd);
     }
+
+    public void deleteMessage(String messageId){
+        for (int i=0; i< messages.size(); i++){
+            if (messages.get(i).getId().equals(messageId)) {
+                messages.remove(i);
+            }
+        }
+    }
 }
