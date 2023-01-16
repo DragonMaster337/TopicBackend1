@@ -1,10 +1,11 @@
 package za.webber.projects.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Topic {
     String topicName;
-    List<Message> messages;
+    List<Message> messages = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -30,5 +31,9 @@ public class Topic {
 
     public void setMessages(List<Message> messages) {
         this.messages = messages;
+    }
+
+    public void addMessage(Message messageToAdd) {
+        messages.add(messageToAdd);
     }
 }
