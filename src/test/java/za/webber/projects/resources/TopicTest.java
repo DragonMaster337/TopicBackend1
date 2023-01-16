@@ -54,4 +54,6 @@ public class TopicTest
         assertEquals("SR1", returnedTopic.getId());
         assertEquals("bob", returnedMessage.getText());
     }
+
+
 }

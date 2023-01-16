@@ -16,7 +16,13 @@ public class TopicResource {
     public List<Topic> getTopics() {
         return loadTopics();
     }
+
+    private List<Topic> myTopicList; // In place of a Database for now.
+
     private List<Topic> loadTopics() {
+        if (myTopicList != null) {
+            return myTopicList;
+        }
 
         Topic topicOW = new Topic();
         Topic topicSR = new Topic();
@@ -25,7 +31,8 @@ public class TopicResource {
         topicOW.setId("OW1");
         topicSR.setId("SR1");
 
-        return List.of(topicOW, topicSR);
+        myTopicList = List.of(topicOW, topicSR);
+        return myTopicList;
     }
 
     @GET
@@ -53,17 +60,27 @@ public class TopicResource {
     @Path("{topicId}/message")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Topic createMessage(@PathParam("topicId") String id, Message messageCreator) {
+    public Message createMessage(@PathParam("topicId") String id, Message messageCreator) {
         Topic topicToAddTo = findTopic(id);
         Message message = new Message();
         message.setId(UUID.randomUUID().toString());
         message.setText(messageCreator.getText());
         topicToAddTo.addMessage(message);
-        return topicToAddTo;
+        return message;
     }
 
     private Topic findTopic(String topicId) {
         List<Topic> topicList = loadTopics();
         return topicList.stream().filter( topic ->  topic.getId().equals(topicId)  ).findFirst().orElse(null);
+    }
+
+    @DELETE
+    @Path("{topicId}/message/{messageId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Topic deleteMessage(@PathParam("topicId") String topicId, @PathParam("messageId") String messageId) {
+       Topic foundTopic = findTopic(topicId);
+       foundTopic.deleteMessage(messageId);
+       return foundTopic;
     }
 }
