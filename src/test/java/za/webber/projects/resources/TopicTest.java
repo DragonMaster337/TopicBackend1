@@ -37,7 +37,7 @@ public class TopicTest
     }
 
     @Test
-    public void testGetMessage() {
+    public void testCreateMessage() {
         Message myMessage = new Message();
         myMessage.setText("bob");
 
@@ -49,9 +49,7 @@ public class TopicTest
 
         response.then().contentType("application/json");
 
-        Topic returnedTopic = response.getBody().as(Topic.class);
-        Message returnedMessage = returnedTopic.getMessages().get(0);
-        assertEquals("SR1", returnedTopic.getId());
+        Message returnedMessage = response.getBody().as(Message.class);
         assertEquals("bob", returnedMessage.getText());
     }
 
