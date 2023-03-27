@@ -35,3 +35,15 @@ Hit the endpoint with http://127.0.0.1:3000/hello
 
 ## Deploy to AWS
 `sam deploy -t target/sam.jvm.yaml -g`
+
+
+# DynamoDB
+
+This project uses the enhanced extension for dynamodb. 
+
+Configured with `quarkus:add-extension -Dextensions=amazon-dynamodb-enhanced -f pom.xml`
+
+https://quarkiverse.github.io/quarkiverse-docs/quarkus-amazon-services/dev/amazon-dynamodb.html
+
+Uses localstack (https://hub.docker.com/r/localstack/localstack) to create a local "cloud" environment
+in order to run DynamoDB.
