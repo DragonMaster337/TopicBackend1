@@ -47,3 +47,32 @@ https://quarkiverse.github.io/quarkiverse-docs/quarkus-amazon-services/dev/amazo
 
 Uses localstack (https://hub.docker.com/r/localstack/localstack) to create a local "cloud" environment
 in order to run DynamoDB.
+
+Doesn't look like quarkus dev mode starts localstack. 
+At the moment I'm trying to run it externally. So start localstack with the localstack cli
+
+Quarkus dev mode seems to start both test containers and localstack.
+However, I'm not sure localstack continues to run
+
+When I use the below to start local stack manually and apply the table updates I can't get quarkus to see the table.
+Maybe differnet instances of localstack?
+
+aws --endpoint-url=http://localhost:4566 cloudformation deploy --template-file sam/dynamodb.yaml --stack-name topic-BE-dynamodb --capabilities CAPABILITY_IAM
+aws cloudformation delete-stack --stack-name topic-BE-dynamodb
+
+
+
+
+## Some local stack commands for reference.
+
+`localstack start`
+See what services are available with 
+
+`localstack status services`
+
+Or
+`http://localhost:4566/health`
+
+
+DynamoDB seems to be available, but not started...
+
