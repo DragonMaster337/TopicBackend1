@@ -3,8 +3,8 @@ package za.webber.projects.resources;
 import za.webber.projects.model.Message;
 import za.webber.projects.model.Topic;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.UUID;
 
