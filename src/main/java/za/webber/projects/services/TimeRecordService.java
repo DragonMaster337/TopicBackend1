@@ -28,9 +28,9 @@ public class TimeRecordService extends AbstractService {
         return timeRecordTable.scan().items().stream().collect(Collectors.toList());
     }
 
-    public List<TimeRecord> add(TimeRecord timeRecord) {
+    public TimeRecord add(TimeRecord timeRecord) {
         timeRecordTable.putItem(timeRecord);
-        return findAll();
+        return get(timeRecord.getName());
     }
 
     public TimeRecord get(String name) {

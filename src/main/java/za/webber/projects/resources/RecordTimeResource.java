@@ -7,6 +7,7 @@ import za.webber.projects.model.TimeRecord;
 import za.webber.projects.services.TimeRecordService;
 
 import java.util.List;
+import java.util.UUID;
 
 @Path("/timerecord")
 @Produces(MediaType.APPLICATION_JSON)
@@ -22,9 +23,21 @@ public class RecordTimeResource {
     }
 
     @GET
-    @Path("{name}")
-    public TimeRecord getSingle(String name) {
+    @Path("/query")
+    public TimeRecord getSingle(@QueryParam("name") String name) {
         return service.get(name);
+    }
+
+    @GET
+    @Path("/create")
+    @Produces(MediaType.TEXT_HTML)
+    public String createTimeRecord(@QueryParam("name") String name) {
+        TimeRecord timerecord = new TimeRecord();
+        timerecord.setId(UUID.randomUUID().toString());
+        timerecord.setName(name);
+        timerecord.setDescription("This should actually be the current date and time.");
+        TimeRecord savedTimeRecord = service.add(timerecord);
+        return "Time Entry Created for " + name + " at " + savedTimeRecord.getDescription();
     }
 
     @POST
