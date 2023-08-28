@@ -35,6 +35,7 @@ public class RecordTimeResource {
         TimeRecord timerecord = new TimeRecord();
         timerecord.setId(UUID.randomUUID().toString());
         timerecord.setName(name);
+        System.out.println(name);
         timerecord.setDescription("This should actually be the current date and time.");
         TimeRecord savedTimeRecord = service.add(timerecord);
         return "Time Entry Created for " + name + " at " + savedTimeRecord.getDescription();

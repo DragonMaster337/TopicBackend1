@@ -30,11 +30,18 @@ public class TimeRecordService extends AbstractService {
 
     public TimeRecord add(TimeRecord timeRecord) {
         timeRecordTable.putItem(timeRecord);
-        return get(timeRecord.getName());
+        System.out.println("Created, now trying to find it from the Database with ane " + timeRecord.getName());
+        return get(timeRecord.getId());
     }
 
-    public TimeRecord get(String name) {
-        Key partitionKey = Key.builder().partitionValue(name).build();
-        return timeRecordTable.getItem(partitionKey);
+    public TimeRecord get(String id) {
+        System.out.println("In the getMethod for name "+ id);
+        Key partitionKey = Key.builder().partitionValue(id).build();
+        TimeRecord foundTimeRecord = timeRecordTable.getItem(partitionKey);
+        if (foundTimeRecord == null) {
+            System.out.println("It's null :-(");
+        }
+        return foundTimeRecord;
+
     }
 }
